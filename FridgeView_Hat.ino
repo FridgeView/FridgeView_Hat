@@ -198,7 +198,7 @@ void loop() {
   if (event.light)
   {
     Serial.print(event.light); Serial.println(" lux"); 
-    if(event.light > 60)
+    if(event.light > 75)
     {
       //open
       closeCounter =  0;
@@ -211,13 +211,13 @@ void loop() {
         openCounter = 5;
       }
     }
-    if(event.light < 55)
+    if(event.light <= 75)
     {
       //close 
       openCounter = 0;
       closeCounter++;
       //after testing make this 150
-      if(closeCounter > 30 && fridgeOpened){
+      if(closeCounter > 150 && fridgeOpened){
         //turn on pi!
         digitalWrite(relayPin,HIGH);
         digitalWrite(lightTriggerPin,HIGH);
@@ -226,7 +226,7 @@ void loop() {
         Serial.println("Light trigger conditions satisfied. Turning on pi");
       }
       if(closeCounter > 1000000) {
-        closeCounter = 30; 
+        closeCounter = 150; 
       }
       
     }
